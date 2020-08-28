@@ -1,5 +1,5 @@
-C_SOURCES = $(wildcard kernel/*.cpp)
-HEADERS = $(wildcard kernel/*.h)
+C_SOURCES = $(wildcard kernel/*.cpp lib/**/*.cpp modules/**/*.cpp)
+HEADERS = $(wildcard kernel/*.h lib/**/*.h modules/**/*.h)
 # Nice syntax for file extension replacement
 OBJ = ${C_SOURCES:.cpp=.o}
 
