@@ -2,6 +2,8 @@
 #define MEM_H
 #include <stdint.h>
 #include <stddef.h>
+#include "../../modules/drivers/screen.h"
+#include "../../lib/libc/string.h"
 
 #define KERNEL_START_POINT 0x10000
 
@@ -15,11 +17,21 @@ struct block {
     uint32_t next;
 };
 
-void memcpy(uint8_t *source, uint8_t *dest, int nbytes);
-void memset(uint8_t *dest, uint8_t val, uint32_t len);
+
+// Copies memory from one address to the other.
+void memcpy(uint32_t *source, uint32_t *dest, int nbytes);
+
+// Sets memory byte at location.
+void memset(uint32_t *dest, uint32_t val, uint32_t len);
 
 
-uint32_t createBlock(char *data);
+// Default size of 1KB per block
+const uint32_t defaultBlockSize = 0x400;
+
+
+// Creates a memory block and returns the address.
+// Maximum of defaultBlockSize.
+uint32_t createBlock(char data[defaultBlockSize]);
 
 
 
