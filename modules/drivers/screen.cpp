@@ -28,6 +28,8 @@ void kprint(char *message) {
     kprint_at(message, -1, -1);
 }
 
+
+
 int print_char(char c, int col, int row, char attr) {
     unsigned char *vidmem = (unsigned char*) VIDEO_ADDRESS;
     if (!attr) attr = WHITE_ON_BLACK;
@@ -51,6 +53,22 @@ int print_char(char c, int col, int row, char attr) {
         vidmem[offset+1] = attr;
         offset += 2;
     }
+
+    /* Check if the offset is over screen size and scroll */
+    if (offset >= MAX_ROWS * MAX_COLS * 2) {
+        int i;
+        for (i = 1; i < MAX_ROWS; i++) 
+            mem::memcpy((uint32_t *)get_offset(0, i) + VIDEO_ADDRESS,
+                        (uint32_t *)get_offset(0, i-1) + VIDEO_ADDRESS,
+                        MAX_COLS * 2);
+
+        /* Blank last line */
+        char *last_line = (char *)get_offset(0, MAX_ROWS-1) + VIDEO_ADDRESS;
+        for (i = 0; i < MAX_COLS * 2; i++) last_line[i] = 0;
+
+        offset -= 2 * MAX_COLS;
+    }
+
     set_cursor_offset(offset);
     return offset;
 }
@@ -92,5 +110,4 @@ void clear_screen() {
 int get_offset(int col, int row) { return 2 * (row * MAX_COLS + col); }
 int get_offset_row(int offset) { return offset / (2 * MAX_COLS); }
 int get_offset_col(int offset) { return (offset - (get_offset_row(offset)*2*MAX_COLS))/2; }
-
 } // namespace screen

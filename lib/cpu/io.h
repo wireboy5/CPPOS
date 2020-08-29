@@ -1,3 +1,5 @@
+#ifndef IO_H
+#define IO_H
 #include <stdint.h>
 
 namespace IO
@@ -23,3 +25,4 @@ namespace IO
     void port_word_out (uint16_t port, uint16_t data);
 
 } // namespace IO
+#endif
