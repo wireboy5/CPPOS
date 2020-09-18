@@ -32,8 +32,13 @@ const uint32_t defaultBlockSize = 0x400;
 // Creates a memory block and returns the address.
 // Maximum of defaultBlockSize.
 uint32_t createBlock(char data[defaultBlockSize]);
+static const size_t align_to = 16;
 
+void* malloc(size_t size);
 
+void free(void* ptr);
+
+void* realloc(void* ptr, size_t size);
 
 } // namespace mem
 #endif

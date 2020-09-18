@@ -7,6 +7,7 @@
 #include <stddef.h>
 #include "../modules/drivers/screen.h"
 #include "../lib/libc/mem.h"
+#include "../lib/libc/rand.h"
 
 extern "C" void kernel_main();
 

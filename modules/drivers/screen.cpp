@@ -3,6 +3,14 @@
 
 namespace screen {
 
+/**********************************************************
+ * Public Kernel API functions                            *
+ **********************************************************/
+
+/**
+ * Print a message on the specified location
+ * If col, row, are negative, we will use the current offset
+ */
 void kprint_at(char *message, int col, int row) {
     /* Set cursor if col/row are negative */
     int offset;
@@ -29,7 +37,19 @@ void kprint(char *message) {
 }
 
 
+/**********************************************************
+ * Private kernel functions                               *
+ **********************************************************/
 
+
+/**
+ * Innermost print function for our kernel, directly accesses the video memory 
+ *
+ * If 'col' and 'row' are negative, we will print at current cursor location
+ * If 'attr' is zero it will use 'white on black' as default
+ * Returns the offset of the next character
+ * Sets the video cursor to the returned offset
+ */
 int print_char(char c, int col, int row, char attr) {
     unsigned char *vidmem = (unsigned char*) VIDEO_ADDRESS;
     if (!attr) attr = WHITE_ON_BLACK;
@@ -58,9 +78,9 @@ int print_char(char c, int col, int row, char attr) {
     if (offset >= MAX_ROWS * MAX_COLS * 2) {
         int i;
         for (i = 1; i < MAX_ROWS; i++) 
-            mem::memcpy((uint32_t *)get_offset(0, i) + VIDEO_ADDRESS,
-                        (uint32_t *)get_offset(0, i-1) + VIDEO_ADDRESS,
-                        MAX_COLS * 2);
+            mem::memcpy((uint32_t *)(get_offset(0, i) + VIDEO_ADDRESS),
+                        (uint32_t *)(get_offset(0, i-1) + VIDEO_ADDRESS),
+                        MAX_COLS);
 
         /* Blank last line */
         char *last_line = (char *)get_offset(0, MAX_ROWS-1) + VIDEO_ADDRESS;
