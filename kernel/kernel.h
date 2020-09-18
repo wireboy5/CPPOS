@@ -8,7 +8,7 @@
 #include "../modules/drivers/screen.h"
 #include "../lib/libc/mem.h"
 #include "../lib/libc/rand.h"
-#include "../lib/libc/vector.h"
+#include "../lib/libc/vector.hpp"
 
 extern "C" void kernel_main();
 
