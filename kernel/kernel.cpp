@@ -28,8 +28,9 @@ void kernel_main() {
     mem::free (buffer);
 
 
-    screen::kprint((char *)"Lets Test vectorClass!\n");
-
-    }
+    
+  }
+  vector v;
+  v.push((char *)"Hello, World!");
 }
 
