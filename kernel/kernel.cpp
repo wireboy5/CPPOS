@@ -45,5 +45,15 @@ void kernel_main() {
 
     screen::kprint((char *)"\n");
     screen::kprint((char *)"Tests Complete!\n");
+
+    // Now lets display system details that we know
+    screen::kprint((char *)"\n\nSystem Details:\n");
+    
+    // Lets start with endianness
+    screen::kprint((char *)"    Endianness: ");
+    screen::kprint((char *)(arch::is_big_endian() ? "Big" : "Little"));
+    screen::kprint((char *)"\n");
+
+    
 }
 

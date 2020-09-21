@@ -9,6 +9,7 @@
 #include "../lib/libc/mem.h"
 #include "../lib/libc/rand.h"
 #include "../lib/libc/vector.hpp"
+#include "../lib/cpu/arch.h"
 
 extern "C" void kernel_main();
 
