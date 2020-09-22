@@ -1,6 +1,6 @@
 #include <stdint.h>
-#include "../../lib/cpu/io.h"
-#include "../../lib/libc/mem.h"
+#include <lib/cpu/io.h>
+#include <lib/libc/mem.h>
 
 #define VIDEO_ADDRESS 0xb8000
 #define MAX_ROWS 25
