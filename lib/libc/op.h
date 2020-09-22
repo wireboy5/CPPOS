@@ -1,7 +1,7 @@
 #ifndef OP_H
 #define OP_H
 
-#include "mem.h"
+#include <lib/libc/mem.h>
 
 void *operator new(size_t size);
 

@@ -2,8 +2,8 @@
 #define MEM_H
 #include <stdint.h>
 #include <stddef.h>
-#include "../../modules/drivers/screen.h"
-#include "../../lib/libc/string.h"
+#include <modules/drivers/screen.h>
+#include <lib/libc/string.h>
 
 #define KERNEL_START_POINT 0x10000
 

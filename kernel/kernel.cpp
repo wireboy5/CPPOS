@@ -53,7 +53,9 @@ void kernel_main() {
     screen::kprint((char *)"    Endianness: ");
     screen::kprint((char *)(arch::is_big_endian() ? "Big" : "Little"));
     screen::kprint((char *)"\n");
-
+    screen::kprint((char *)"    PCI:\n");
+    PCI::PCIDevice dev1 = PCI::getDevice(0,0);
+    screen::kprint((char *)(string::hexToASCII(dev1.vendorID)));
     
 }
 

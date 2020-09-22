@@ -35,14 +35,7 @@ bool checkFunction(uint8_t bus, uint8_t slot, uint8_t function){
 uint8_t getNumFunctions(uint8_t bus, uint8_t slot){
     bool done = false;
     uint8_t i;
-    while(!done){
-        if(checkFunction(bus,slot,i)){
-            done = true;
-            break;
-        } else {
-            i++;
-        }
-    }
+    while(checkFunction(bus,slot,i)) i++;
     return i;
 }
 
