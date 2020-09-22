@@ -25,7 +25,7 @@ bool is_bit_set(unsigned int value){
 // This will be used to implement full malloc, free, 
 // and realloc functions
 /////////////////////////////////////////////////////////////////////
-uint32_t free_mem_addr = 0x10000;
+uint32_t free_mem_addr = 0x20000;
 
 uint32_t kmalloc(uint32_t size, int align, uint32_t *phys_addr){
         /* Pages are aligned to 4K, or 0x1000 */
