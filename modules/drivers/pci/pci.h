@@ -1,9 +1,9 @@
 #ifndef PCI_H
 #define PCI_H
 #include <stdint.h>
-#include "../../lib/libc/vector.hpp"
-#include "../../lib/cpu/io.h"
-#include "../../lib/cpu/arch.h"
+#include <lib/libc/vector.hpp>
+#include <lib/cpu/io.h>
+#include <lib/cpu/arch.h>
 namespace PCI {
 
 class PCIDevice {

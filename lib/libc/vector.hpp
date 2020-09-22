@@ -1,7 +1,7 @@
 #ifndef VECTOR_H
 #define VECTOR_H
-#include "op.h"
-#include "iterator.hpp"
+#include <lib/libc/op.h>
+#include <lib/libc/iterator.hpp>
 
 template <typename T> 
 class vector { 
