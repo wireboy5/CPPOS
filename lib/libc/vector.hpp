@@ -10,13 +10,33 @@ private:
     long long capacity; 
     long long length; 
     T* arr;
-public: 
-    explicit vector(long long = 100); 
+    
+    class proxy {
+        vector &a;
+        long long idx;
+        T valuet;
+    public:
+        proxy(vector &a, long long idx, T value) : a(a), idx(idx), valuet(value){}
+        T value(){
+            return valuet;
+        }
+        void operator=(T val){
+            a.arr[idx] = val;
+        }
+    };
+public:
+    
+    vector(long long = 100); 
+    vector(long long,T init[] = {}); 
     long long push_back(T); 
     T pop_back(); 
     long long size() const; 
-    T& operator[](long long); 
-  
+    proxy operator[](long long); 
+    void operator=(T a){
+        for(int i=0; i<sizeof(a)/sizeof(T); i++){
+            push_back(a[i]);
+        }
+    }
     class iterator { 
     private: 
         T* ptr; 
@@ -69,6 +89,12 @@ vector<T>::vector(long long n)
     : capacity(n), arr(new T[n]), length(0) 
 { 
 } 
+template <typename T> 
+vector<T>::vector(long long n,T init[]) 
+    : capacity(sizeof(init)/sizeof(T)), arr(init), length(0) 
+{ 
+
+} 
   
 // Template class to insert the element 
 // in vector 
@@ -104,17 +130,19 @@ long long vector<T>::size() const
 // Template class to return the element of 
 // vector at given index 
 template <typename T> 
-T& vector<T>::operator[](long long index) 
+typename vector<T>::proxy vector<T>::operator[](long long index) 
 { 
     // if given index is greator than the 
     // size of vector print Error 
     if (index >= length) { 
-        
-    } 
-  
-    // else return value at that index 
-    return *(arr + index); 
-} 
+        return vector<T>::proxy(*this,size()+1,*(arr + size()));
+    } else {
+        return vector<T>::proxy(*this,index,*(arr + index));
+        //return *(arr + index);
+    }
+}
+
+
   
 // Template class to return begin iterator 
 template <typename T> 
@@ -131,7 +159,7 @@ typename vector<T>::iterator
 { 
     return iterator(arr + length); 
 } 
-  
+
 
 
 #endif

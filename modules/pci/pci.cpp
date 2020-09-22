@@ -1,9 +1,66 @@
-#include "pci.h"
+#include <modules/pci/pci.h>
 
 
 
 namespace PCI {
-    
+
+void PCIDevice::prettyPrint(){
+    uint8_t vals[] = {
+        bus,
+        slot,
+        classCode,
+        subclass,
+        progIF,
+        RevisionID,
+        BIST,
+        headerType,
+        latencyTimer,
+        cacheLineSize
+    };
+    char names[][32] = {
+        "bus",
+        "slot",
+        "classCode",
+        "subclass",
+        "progIF",
+        "RevisionID",
+        "BIST",
+        "headerType",
+        "latencyTimer",
+        "cacheLineSize"
+    };
+    for(int i=0; i < sizeof(vals)/sizeof(uint8_t); i++){
+        char s[256] = "";
+        screen::kprint(names[i]);
+        screen::kprint((char *)" : ");
+        string::hex_to_ascii(vals[i],s);
+        screen::kprint(s);
+        screen::kprint((char *)"\n");
+    }
+    uint16_t vals2[] = {
+        deviceID,
+        vendorID,
+        status,
+        command
+    };
+    char names2[][32] = {
+        "deviceID",
+        "vendorID",
+        "status",
+        "command"
+    };
+    for(int i=0; i < sizeof(vals2)/sizeof(uint16_t); i++){
+        char s[256] = "";
+        screen::kprint(names2[i]);
+        screen::kprint((char *)" : ");
+        string::hex_to_ascii(vals2[i],s);
+        screen::kprint(s);
+        screen::kprint((char *)"\n");
+    }
+
+}
+
+
 uint16_t pciConfigReadWord (uint8_t bus, uint8_t slot, uint8_t func, uint8_t offset) {
     uint32_t address;
     uint32_t lbus  = (uint32_t)bus;
@@ -33,12 +90,10 @@ bool checkFunction(uint8_t bus, uint8_t slot, uint8_t function){
 
 
 uint8_t getNumFunctions(uint8_t bus, uint8_t slot){
-    bool done = false;
     uint8_t i;
     while(checkFunction(bus,slot,i)) i++;
     return i;
 }
-
 
 PCIDevice getDevice(uint8_t bus, uint8_t slot, uint8_t function){
     PCIDevice dev;
@@ -54,5 +109,6 @@ PCIDevice getDevice(uint8_t bus, uint8_t slot, uint8_t function){
     
     return dev;
 }
+
 
 }

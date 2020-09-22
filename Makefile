@@ -1,5 +1,18 @@
-C_SOURCES = $(wildcard kernel/*.cpp lib/**/*.cpp modules/**/*.cpp)
-HEADERS = $(wildcard kernel/*.h lib/**/*.h modules/**/*.h)
+C_SOURCES = $(wildcard \
+	kernel/*.cpp \
+	lib/**/*.cpp \
+	modules/*.cpp \
+	modules/**/*.cpp \
+	modules/pci/*.cpp \
+)
+
+HEADERS = $(wildcard \
+	kernel/*.h \
+	lib/**/*.h \
+	modules/*.h \
+	modules/**/*.h \
+	modules/pci/*.h \
+)
 # Nice syntax for file extension replacement
 OBJ = ${C_SOURCES:.cpp=.o}
 
@@ -38,6 +51,7 @@ debug: os-image.bin kernel.elf
 %.o: %.cpp ${HEADERS}
 	${CXX} ${CFLAGS} -c $< -o $@
 
+
 %.o: %.asm
 	nasm $< -f elf -o $@
 
@@ -46,4 +60,4 @@ debug: os-image.bin kernel.elf
 
 clean:
 	rm -rf *.bin *.dis *.o os-image.bin *.elf
-	rm -rf **/*.o
+	find . -type f -name '*.o' -delete
