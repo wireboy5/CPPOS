@@ -40,7 +40,7 @@ void kernel_main() {
       v.push_back((char *)(rand::rand()%26+'a'));
     }
     for(int i=0; i<v.size(); i++){
-      screen::kprint(v[i]);
+      screen::kprint(v[i].value());
     }
 
     screen::kprint((char *)"\n");
@@ -54,8 +54,8 @@ void kernel_main() {
     screen::kprint((char *)(arch::is_big_endian() ? "Big" : "Little"));
     screen::kprint((char *)"\n");
     screen::kprint((char *)"    PCI:\n");
-    PCI::PCIDevice dev1 = PCI::getDevice(0,0);
-    screen::kprint((char *)(string::hexToASCII(dev1.vendorID)));
+    PCI::PCIDevice dev1 = PCI::getDevice(0,1,0);
+    dev1.prettyPrint();
     
 }
 
