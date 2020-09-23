@@ -54,8 +54,8 @@ void kernel_main() {
     screen::kprint((char *)(arch::is_big_endian() ? "Big" : "Little"));
     screen::kprint((char *)"\n");
     screen::kprint((char *)"    PCI:\n");
-    PCI::PCIDevice dev1 = PCI::getDevice(0,1,0);
-    dev1.prettyPrint();
+    PCI::PCIDevice dev1 = PCI::getDevice(0,1,1);
+    dev1.prettyPrint(8);
     
 }
 
