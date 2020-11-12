@@ -1,8 +1,7 @@
 #include "kernel.h"
 
-
-void kernel_main() {
-    screen::clear_screen();
+void tests(){
+  screen::clear_screen();
     screen::kprint((char *)"Test!\n");
     //char chr[1024] = "";
     //for(int i = 0; i < 1024; i++){
@@ -44,18 +43,31 @@ void kernel_main() {
     }
 
     screen::kprint((char *)"\n");
+    screen::kprint((char *)"Lets Test string.\n");
+    string::string s = "Hello, World!\n";
+    screen::kprint(s.c_str());
+    screen::kprint(string::string(s.length()).c_str());
+    screen::kprint(string::string("\n").c_str());
+    s.resize(12);
+    screen::kprint(s.c_str());
+    screen::kprint(string::string("\n").c_str());
     screen::kprint((char *)"Tests Complete!\n");
+}
 
+
+void kernel_main() {
+    
+    tests();
     // Now lets display system details that we know
-    screen::kprint((char *)"\n\nSystem Details:\n");
+    //screen::kprint((char *)"\n\nSystem Details:\n");
     
     // Lets start with endianness
-    screen::kprint((char *)"    Endianness: ");
-    screen::kprint((char *)(arch::is_big_endian() ? "Big" : "Little"));
-    screen::kprint((char *)"\n");
-    screen::kprint((char *)"    PCI:\n");
-    PCI::PCIDevice dev1 = PCI::getDevice(0,1,1);
-    dev1.prettyPrint(8);
+    //screen::kprint((char *)"    Endianness: ");
+    //screen::kprint((char *)(arch::is_big_endian() ? "Big" : "Little"));
+    //screen::kprint((char *)"\n");
+    //screen::kprint((char *)"    PCI:\n");
+    //PCI::PCIDevice dev1 = PCI::getDevice(0,0,0);
+    //dev1.prettyPrint(8);
     
 }
 

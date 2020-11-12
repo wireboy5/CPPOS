@@ -11,7 +11,7 @@
 #include <lib/libc/rand.h>
 #include <lib/libc/vector.hpp>
 #include <lib/cpu/arch.h>
-
+#include <lib/libc/string.h>
 
 
 extern "C" void kernel_main();

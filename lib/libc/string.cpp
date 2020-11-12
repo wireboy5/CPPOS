@@ -3,6 +3,85 @@
 
 namespace string {
 
+
+string::string(char * str)
+{
+    set(str);
+}
+
+
+string::string(int n){
+    set(n);
+}
+void string::reallocate(uint32_t len){
+    mem::realloc(arr,(size_t)len);
+    scapacity = len;
+}
+void string::set(char * s){
+    if(sizeof(s) > scapacity){
+        arr = (char*)mem::malloc(sizeof(s));
+    }
+    arr = s;
+    slength = strlen(s);
+}
+void string::set(int n){
+    char *a;
+    int_to_ascii(n,a);
+    if(sizeof(a)>scapacity){
+        arr = (char*)mem::malloc(sizeof(a));
+    }
+    arr = a;
+    slength = strlen(a);
+}
+char* string::c_str(){
+    return arr;
+}
+uint32_t string::size(){
+    return slength;
+}
+uint32_t string::length(){
+    return slength;
+}
+size_t string::max_size(){
+    return 4294967291;
+}
+void string::resize(uint32_t n){
+    if(n>max_size()){
+        return;
+    }
+    
+    if(n<slength){
+        char * a = new char[n];
+        for(int i=0; i<n; i++){
+            a[i] = arr[i];
+        }
+        a[n] = *"\0";
+        arr = a;
+        delete[] a;
+        
+    }
+    reallocate(n);
+    
+    
+}
+uint32_t string::capacity(){
+    return scapacity;
+}
+string string::operator=(char * str) {
+    set(str);
+    return *this;
+}
+string string::operator*(int num) {
+    if(sizeof(arr)*num > scapacity){
+        reallocate(sizeof(arr)*num);
+    }
+    arr = new char[scapacity];
+    return *this;
+}
+
+
+
+
 void int_to_ascii(int n, char str[]) {
     int i, sign;
     if ((sign = n) < 0) n = -n;
@@ -16,16 +95,16 @@ void int_to_ascii(int n, char str[]) {
 
     reverse(str);
 }
-char * intToASCII(int n){
-    char str[256] = "";
+char intToASCII(int n){
+    char * str = new char[256];
     int_to_ascii(n,str);
-    return str;
+    return *str;
 }
 
-char * hexToASCII(int n){
-    char str[256] = "";
+char hexToASCII(int n){
+    char * str = new char[256];
     hex_to_ascii(n,str);
-    return str;
+    return *str;
 }
 
 void hex_to_ascii(int n, char str[]) {
